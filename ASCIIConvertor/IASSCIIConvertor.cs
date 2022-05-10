@@ -28,6 +28,13 @@ namespace ASCIIConvertor
         /// </summary>
         /// <param name="bitmapBegin"></param>
         /// <returns></returns>
-        public Bitmap ToGrayscale(Bitmap bitmapBegin);
+        public Bitmap ToGrayscale(Bitmap bitmapBegin);    
+        
+        /// <summary>
+        /// Преобразовывает bitmap в массив ascii char
+        /// </summary>
+        /// <param name="bitmapBegin"></param>
+        /// <returns></returns>
+        public char[][] Convert(Bitmap bitmapBegin);
     }
 }
