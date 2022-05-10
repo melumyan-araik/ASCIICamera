@@ -22,5 +22,12 @@ namespace ASCIIConvertor
         /// <param name="widthOffset"></param>
         /// <returns></returns>
         Bitmap ResizeBitmap(Bitmap bitmapBegin, int maxWidth, double widthOffset);
+        
+        /// <summary>
+        /// Возвращает картинку в градиенте серого
+        /// </summary>
+        /// <param name="bitmapBegin"></param>
+        /// <returns></returns>
+        public Bitmap ToGrayscale(Bitmap bitmapBegin);
     }
 }
