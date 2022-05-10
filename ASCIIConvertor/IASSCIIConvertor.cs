@@ -36,5 +36,12 @@ namespace ASCIIConvertor
         /// <param name="bitmapBegin"></param>
         /// <returns></returns>
         public char[][] Convert(Bitmap bitmapBegin);
+
+        /// <summary>
+        ///  Преобразовывает bitmap в массив ascii char в негативе
+        /// </summary>
+        /// <param name="bitmapBegin"></param>
+        /// <returns></returns>
+        public char[][] ConvertNegative(Bitmap bitmapBegin);
     }
 }

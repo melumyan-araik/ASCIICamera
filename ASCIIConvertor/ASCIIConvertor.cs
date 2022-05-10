@@ -8,6 +8,7 @@ namespace ASCIIConvertor
     {
         private readonly string[] IMG_EXTENTION = { ".bmp", ".png", ".jpg", ".JPEG" };
         private readonly char[] ASCII_TABLE = { '.', ',', ':', '+', '*', '?', '%', '$', '#', '@' };
+        private readonly char[] ASCII_TABLE_NEGATIVE = { '@', '#', '$', '%', '?', '*', '+', ':', ',', '.' };
 
         public Bitmap OpenImg(string path)
         {
@@ -53,14 +54,22 @@ namespace ASCIIConvertor
         }
         public char[][] Convert(Bitmap bitmapBegin)
         {
+            return Convert(bitmapBegin, ASCII_TABLE);
+        }
+        public char[][] ConvertNegative(Bitmap bitmapBegin)
+        {
+            return Convert(bitmapBegin, ASCII_TABLE_NEGATIVE);
+        }
+        private char[][] Convert(Bitmap bitmapBegin, char[] asciiTable)
+        {
             var result = new char[bitmapBegin.Height][];
             for (var y = 0; y < bitmapBegin.Height; y++)
             {
                 result[y] = new char[bitmapBegin.Width];
                 for (var x = 0; x < bitmapBegin.Width; x++)
                 {
-                    int mapIndex = (int)Map(bitmapBegin.GetPixel(x, y).R, 0, 255, 0, ASCII_TABLE.Length - 1);
-                    result[y][x] = ASCII_TABLE[mapIndex];
+                    int mapIndex = (int)Map(bitmapBegin.GetPixel(x, y).R, 0, 255, 0, asciiTable.Length - 1);
+                    result[y][x] = asciiTable[mapIndex];
                 }
             }
             return result;
