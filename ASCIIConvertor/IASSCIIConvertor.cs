@@ -12,7 +12,7 @@ namespace ASCIIConvertor
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public Bitmap OpenImg(string path);
+        public void OpenImg(string path);
 
         /// <summary>
         /// Изменение размера картинки по ширине
@@ -21,27 +21,20 @@ namespace ASCIIConvertor
         /// <param name="maxWidth"></param>
         /// <param name="widthOffset"></param>
         /// <returns></returns>
-        Bitmap ResizeBitmap(Bitmap bitmapBegin, int maxWidth, double widthOffset);
-        
-        /// <summary>
-        /// Возвращает картинку в градиенте серого
-        /// </summary>
-        /// <param name="bitmapBegin"></param>
-        /// <returns></returns>
-        public Bitmap ToGrayscale(Bitmap bitmapBegin);    
-        
+        public void ResizeBitmap(int maxWidth, double widthOffset);
+                
         /// <summary>
         /// Преобразовывает bitmap в массив ascii char
         /// </summary>
         /// <param name="bitmapBegin"></param>
         /// <returns></returns>
-        public char[][] Convert(Bitmap bitmapBegin);
+        public char[][] Convert();
 
         /// <summary>
         ///  Преобразовывает bitmap в массив ascii char в негативе
         /// </summary>
         /// <param name="bitmapBegin"></param>
         /// <returns></returns>
-        public char[][] ConvertNegative(Bitmap bitmapBegin);
+        public char[][] ConvertNegative();
     }
 }

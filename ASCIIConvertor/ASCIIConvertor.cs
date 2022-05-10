@@ -9,59 +9,53 @@ namespace ASCIIConvertor
         private readonly string[] IMG_EXTENTION = { ".bmp", ".png", ".jpg", ".JPEG" };
         private readonly char[] ASCII_TABLE = { '.', ',', ':', '+', '*', '?', '%', '$', '#', '@' };
         private readonly char[] ASCII_TABLE_NEGATIVE = { '@', '#', '$', '%', '?', '*', '+', ':', ',', '.' };
+        public Bitmap bitmap { set; get; }
+        public ASCIIConvertor()
+        {
 
-        public Bitmap OpenImg(string path)
+        }
+        public ASCIIConvertor(string path)
+        {
+            OpenImg(path);
+        }
+        public void OpenImg(string path)
         {
             try
             {
                 var exten = Path.GetExtension(path);
                 if (!CheckExtention(exten, IMG_EXTENTION))
                     throw new Exception("Тип не поддерживается!");
-                return new Bitmap(path);
+                bitmap = new Bitmap(path);
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
-        public Bitmap ResizeBitmap(Bitmap bitmapBegin, int maxWidth, double widthOffset = 1.5)
+        public void ResizeBitmap(int maxWidth = 350, double widthOffset = 1.5)
         {
             try
             {
-                var newHeight = bitmapBegin.Height / widthOffset * maxWidth / bitmapBegin.Width;
-                if (bitmapBegin.Width > maxWidth || bitmapBegin.Height > newHeight)
-                    bitmapBegin = new Bitmap(bitmapBegin, new Size(maxWidth, (int)newHeight));
-                return bitmapBegin;
+                var newHeight = bitmap.Height / widthOffset * maxWidth / bitmap.Width;
+                if (bitmap.Width > maxWidth || bitmap.Height > newHeight)
+                    bitmap = new Bitmap(bitmap, new Size(maxWidth, (int)newHeight));
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
-        public Bitmap ToGrayscale(Bitmap bitmapBegin)
+        public char[][] Convert()
         {
-            for (var y = 0; y < bitmapBegin.Height; y++)
-            {
-                for (var x = 0; x < bitmapBegin.Width; x++)
-                {
-                    var pixel = bitmapBegin.GetPixel(x, y);
-                    int avg = (pixel.R + pixel.G + pixel.B) / 3;
-                    bitmapBegin.SetPixel(x, y, Color.FromArgb(pixel.A, avg, avg, avg));
-                }
-            }
-
-            return bitmapBegin;
+            return Convert(bitmap, ASCII_TABLE);
         }
-        public char[][] Convert(Bitmap bitmapBegin)
+        public char[][] ConvertNegative()
         {
-            return Convert(bitmapBegin, ASCII_TABLE);
-        }
-        public char[][] ConvertNegative(Bitmap bitmapBegin)
-        {
-            return Convert(bitmapBegin, ASCII_TABLE_NEGATIVE);
+            return Convert(bitmap, ASCII_TABLE_NEGATIVE);
         }
         private char[][] Convert(Bitmap bitmapBegin, char[] asciiTable)
         {
+            ToGrayscale();
             var result = new char[bitmapBegin.Height][];
             for (var y = 0; y < bitmapBegin.Height; y++)
             {
@@ -73,6 +67,18 @@ namespace ASCIIConvertor
                 }
             }
             return result;
+        }
+        private void ToGrayscale()
+        {
+            for (var y = 0; y < bitmap.Height; y++)
+            {
+                for (var x = 0; x < bitmap.Width; x++)
+                {
+                    var pixel = bitmap.GetPixel(x, y);
+                    int avg = (pixel.R + pixel.G + pixel.B) / 3;
+                    bitmap.SetPixel(x, y, Color.FromArgb(pixel.A, avg, avg, avg));
+                }
+            }
         }
         private float Map(float valueToMap, float start1, float stop1, float start2, float stop2)
         {

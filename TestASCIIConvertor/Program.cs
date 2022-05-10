@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using ASCIIConvertor;
 
 
 namespace TestASCIIConvertor
@@ -9,6 +10,8 @@ namespace TestASCIIConvertor
         [STAThread]
         static void Main(string[] args)
         {
+            var convertor = new ASCIIConvertor.ASCIIConvertor();
+
             var openFileDialog = new OpenFileDialog
             {
                  Filter = "Images | *.bmp; *.png; *.jpg; *.JPEG"
@@ -25,7 +28,15 @@ namespace TestASCIIConvertor
 
                 Console.Clear();
 
+                convertor.OpenImg(openFileDialog.FileName);
+                convertor.ResizeBitmap();
+                var rows = convertor.Convert();
+                foreach(var row in rows)
+                {
+                    Console.WriteLine(row);
+                }
 
+                Console.SetCursorPosition(0, 0);
             }
         }
     }
