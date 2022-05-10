@@ -18,6 +18,11 @@ namespace ASCIIConvertor
         {
             OpenImg(path);
         }
+
+        public ASCIIConvertor(Bitmap bm)
+        {
+            OpenImg(bm);
+        }
         public void OpenImg(string path)
         {
             try
@@ -26,6 +31,17 @@ namespace ASCIIConvertor
                 if (!CheckExtention(exten, IMG_EXTENTION))
                     throw new Exception("Тип не поддерживается!");
                 bitmap = new Bitmap(path);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public void OpenImg(Bitmap bm)
+        {
+            try
+            {
+                bitmap = bm;
             }
             catch (Exception e)
             {
