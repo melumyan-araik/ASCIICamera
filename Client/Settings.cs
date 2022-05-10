@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -46,9 +47,22 @@ namespace Client
                 errorIp.Text = "Неверный Ip";
             }
 
-            if (int.Parse(textBoxPort.Text) >= 0 && int.Parse(textBoxPort.Text) < 65536)
+            int port = int.Parse(textBoxPort.Text);
+            if (port >= 0 && port < 65536)
             {
                 checkPort = true;
+
+                IPGlobalProperties ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
+                TcpConnectionInformation[] tcpConnInfoArray = ipGlobalProperties.GetActiveTcpConnections();
+                foreach (TcpConnectionInformation tcpi in tcpConnInfoArray)
+                {
+                    if (tcpi.LocalEndPoint.Port == port)
+                    {
+                        errorPort.Text = "Порт недоступен!";
+                        checkPort = false;
+                        break;
+                    }
+                }                
             }
             else
             {
