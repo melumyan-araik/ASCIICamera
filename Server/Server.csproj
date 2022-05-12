@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ASCIIConvertor\ASCIIConvertor.csproj" />
     <ProjectReference Include="..\Settings\Settings.csproj" />
   </ItemGroup>

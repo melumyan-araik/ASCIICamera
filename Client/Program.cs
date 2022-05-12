@@ -11,6 +11,7 @@ namespace Client
 {
     class Program
     {
+        private static UdpClient udpClient = new UdpClient();
         [STAThread]
         static void Main(string[] args)
         {
@@ -20,24 +21,36 @@ namespace Client
         static async void Listener()
         {
             var convertor = new ASCIIConvertor.ASCIIConvertor();
-
-            var port = int.Parse(ConfigurationManager.AppSettings.Get("socket").Split(':')[1]);
-            var client = new UdpClient(port);
-            while (true)
+            try
             {
-                var data = await client.ReceiveAsync();
-                using (var ms = new MemoryStream(data.Buffer))
+                //var ip = ConfigurationManager.AppSettings.Get("socket").Split(':')[0];
+                var port = int.Parse(ConfigurationManager.AppSettings.Get("socket").Split(':')[1]);
+
+                var client = new UdpClient(port);
+                while (true)
                 {
-                    convertor.OpenImg(new Bitmap(ms));
-                    convertor.ResizeBitmap();
-                    var rows = convertor.Convert();
-                    foreach (var row in rows)
+                    var data = await client.ReceiveAsync();
+                    using (var ms = new MemoryStream(data.Buffer))
                     {
-                        Console.WriteLine(row);
+                        convertor.OpenImg(new Bitmap(ms));
+                        convertor.ResizeBitmap();
+                        var rows = convertor.Convert();
+
+                        //Console.Clear();
+                        foreach (var row in rows)
+                        {
+                            Console.WriteLine(row);
+                        }
+                        Console.SetCursorPosition(0, 0);
                     }
+                    Console.Title = $"Получено байт: {data.Buffer.Length * sizeof(byte)}";
                 }
-                Console.Title = $"Получено байт: {data.Buffer.Length * sizeof(byte)}";
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            
         }
 
 
