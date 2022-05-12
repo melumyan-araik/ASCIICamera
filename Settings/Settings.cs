@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace Client
+namespace Settings
 {
     public partial class Settings : Form
     {
@@ -62,7 +62,7 @@ namespace Client
                         checkPort = false;
                         break;
                     }
-                }                
+                }
             }
             else
             {

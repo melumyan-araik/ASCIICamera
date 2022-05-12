@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASCIIConvertor\ASCIIConvertor.csproj" />
+    <ProjectReference Include="..\Settings\Settings.csproj" />
   </ItemGroup>
 
 </Project>

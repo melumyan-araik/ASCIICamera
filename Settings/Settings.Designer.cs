@@ -1,7 +1,8 @@
 ﻿
+using System;
 using System.Windows.Forms;
 
-namespace Client
+namespace Settings
 {
     partial class Settings
     {
@@ -22,7 +23,6 @@ namespace Client
             }
             base.Dispose(disposing);
         }
-
         #region Windows Form Designer generated code
 
         /// <summary>

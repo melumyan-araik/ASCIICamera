@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Settings;
+using System;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
@@ -13,7 +14,7 @@ namespace Client
         [STAThread]
         static void Main(string[] args)
         {
-            Application.Run(new Settings());
+            Application.Run(new Settings.Settings());
             Listener();
         }
         static async void Listener()
