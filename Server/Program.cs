@@ -28,7 +28,9 @@ namespace ASCIICamera
             var ip = ConfigurationManager.AppSettings.Get("socket").Split(':')[0];
             var port = int.Parse(ConfigurationManager.AppSettings.Get("socket").Split(':')[1]);
             consumerationEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-
+            
+            Console.WriteLine($"Приложение запущено\nАдрес места назначения {ip}:{port}");
+            
             FilterInfoCollection videoDevice = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             VideoCaptureDevice videoSource = new VideoCaptureDevice(videoDevice[0].MonikerString);
 

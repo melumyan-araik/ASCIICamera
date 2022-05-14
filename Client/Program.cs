@@ -23,7 +23,7 @@ namespace Client
             var convertor = new ASCIIConvertor.ASCIIConvertor();
             try
             {
-                //var ip = ConfigurationManager.AppSettings.Get("socket").Split(':')[0];
+                var ip = ConfigurationManager.AppSettings.Get("socket").Split(':')[0];
                 var port = int.Parse(ConfigurationManager.AppSettings.Get("socket").Split(':')[1]);
 
                 var client = new UdpClient(port);
@@ -43,7 +43,7 @@ namespace Client
                         }
                         Console.SetCursorPosition(0, 0);
                     }
-                    Console.Title = $"Получено байт: {data.Buffer.Length * sizeof(byte)}";
+                    Console.Title = $"Получено байт: {data.Buffer.Length * sizeof(byte)}; Адрес источника {port}";
                 }
             }
             catch (Exception e)
